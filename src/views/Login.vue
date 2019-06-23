@@ -74,7 +74,7 @@ export default {
       console.log('');
       localStorage.setItem('token',token);
       this.$store.commit('setToken',token);
-      const {redirect} = this.$route.query||'/';
+      const redirect = this.$route.query||'/';
       this.$router.push(redirect);
     }else{
       console.log();
