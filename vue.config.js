@@ -56,7 +56,7 @@ module.exports = {
                                         });
                                     }
                                 });*/
-                app.get('/api/login', function (req, res) {
+                app.post('/api/login', function (req, res) {
                     console.log("用户登录");
                     let body = [];
                     req.on("data", chunk => {
