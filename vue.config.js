@@ -27,7 +27,7 @@ module.exports = {
                         } else {
                             res.sendStatus(401); // 错误状态提示用户需要登录
                         }
-                    }else{
+                    } else {// 如果不是api
                         next();
                     }
                 })
@@ -42,19 +42,46 @@ module.exports = {
                     });
                 });
 
-                app.get("/api/login", function (req, res) {
-                    const {username, password} = req.query;
-                    if (username === "jerry" && password === "123") {
-                        res.json({
-                            code: 0,
-                            token: "jilei"
-                        });
-                    } else {
-                        res.json({
-                            code: 1,
-                            message: "用户名或密码错误"
-                        });
-                    }
+                /*                app.get("/api/login", function (req, res) {
+                                    const {username, password} = req.query;
+                                    if (username === "jerry" && password === "123") {
+                                        res.json({
+                                            code: 0,
+                                            token: "jilei"
+                                        });
+                                    } else {
+                                        res.json({
+                                            code: 1,
+                                            message: "用户名或密码错误"
+                                        });
+                                    }
+                                });*/
+                app.get('/api/login', function (req, res) {
+                    console.log("用户登录");
+                    let body = [];
+                    req.on("data", chunk => {
+                        // 接收到一部分数据
+                        console.log(chunk); //chunk是Buffer对象
+                        body.push(chunk);
+                    }).on("end", () => {
+                        // 数据接收完毕
+                        // 将body转换为完整的buffer
+                        body = Buffer.concat(body).toString();//utf
+                        console.log(body);
+                        // 转换并保存前台传递的user
+                        const {username, password} = JSON.parse(body); //{name:'aaa',age:20}
+                        if (username == "jerry" && password == "123") {
+                            res.json({
+                                code: 0,
+                                token: "jilei"
+                            });
+                        } else {
+                            res.json({
+                                code: 1,
+                                message: "用户名或密码错误"
+                            });
+                        }
+                    })
                 });
                 app.get('/api/logout', function (req, res) {
                     res.json({code: -1})
