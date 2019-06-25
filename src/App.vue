@@ -6,8 +6,9 @@
               <router-link to="/login" v-if="!isLogin">Login</router-link>
               <a @click="logout" v-if="isLogin">Logout</a>
             </div>-->
-        <router-view/>
-        <cube-tab-bar
+        <transition name="route-move">
+        <router-view class="child-view"/></transition>
+        <cube-tab-bar show-slider
                 v-model="selectLabel"
                 @change="changeHandler">
             <cube-tab v-for="(item, index) in tabs" :key="index"
@@ -103,12 +104,13 @@
     .route-move-leave-to {
         transform: translate3d(100%, 0, 0);
     }
-
+/* 播放动画过程中，0.3秒完成动画 */
     .route-move-enter-active,
     .route-move-leave-active {
         transition: transform 0.3s;
     }
 
+    /* 解决切换页面是往上跳的方法 */
     .child-view {
         position: absolute;
         left: 0;
