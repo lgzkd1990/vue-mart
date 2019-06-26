@@ -7,12 +7,15 @@
               <a @click="logout" v-if="isLogin">Logout</a>
             </div>-->
         <transition name="route-move">
-        <router-view class="child-view"/></transition>
+            <router-view class="child-view"/>
+        </transition>
         <cube-tab-bar show-slider
-                v-model="selectLabel"
-                @change="changeHandler">
-            <cube-tab v-for="(item, index) in tabs" :key="index"
-                      :icon="item.icon" :label="item.value">
+                      v-model="selectLabel"
+                      @change="changeHandler">
+            <cube-tab v-for="(item, index) in tabs"
+                      :key="index"
+                      :icon="item.icon"
+                      :label="item.value">
                 <span>{{item.label}}</span>
                 <span class="badge" v-if="showBadge(item.label)">{{cartTotal}}</span>
             </cube-tab>
@@ -55,7 +58,7 @@
             }
         },
         computed: {
-            ...mapGetters(['isLogin'])
+            ...mapGetters(['isLogin','cartTotal'])
         },
     }
 </script>
@@ -104,7 +107,8 @@
     .route-move-leave-to {
         transform: translate3d(100%, 0, 0);
     }
-/* 播放动画过程中，0.3秒完成动画 */
+
+    /* 播放动画过程中，0.3秒完成动画 */
     .route-move-enter-active,
     .route-move-leave-active {
         transition: transform 0.3s;

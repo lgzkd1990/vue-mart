@@ -26,7 +26,7 @@
                 // 加购物车
                 this.$store.commit('addCart', item);
             },
-            imgPreview(img){
+            imgPreview(img) {
                 // 调用cube-ui全局api动态添加图片预览组件
                 this.$createImagePreview({
                     imgs: [img]
@@ -36,30 +36,31 @@
     }
 </script>
 
-<style lang="stylus"  scoped>
+<style lang="stylus" scoped>
     .item {
         padding: 10px;
         overflow: hidden;
 
-    .left {
-        width: 100px;
-        float: left;
+        .left {
+            width: 100px;
+            float: left;
 
-    img {
-        width: 100%;
-    }
-    }
+            img {
+                width: 100%;
+            }
+        }
 
-    .right {
-        margin-left: 120px;
-        text-align: left;
+        .right {
+            margin-left: 120px;
+            text-align: left;
 
-    .title {
-        line-height: 30px;
-    }
-    .cubeic-add {
-        font-size: 22px;
-    }
-    }
+            .title {
+                line-height: 30px;
+            }
+
+            .cubeic-add {
+                font-size: 22px;
+            }
+        }
     }
 </style>
