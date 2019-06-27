@@ -6,7 +6,7 @@
               <router-link to="/login" v-if="!isLogin">Login</router-link>
               <a @click="logout" v-if="isLogin">Logout</a>
             </div>-->
-        <transition name="route-move">
+        <transition :name="transitionName">
             <router-view class="child-view"/>
         </transition>
         <cube-tab-bar show-slider
@@ -33,13 +33,15 @@
                     {label: "Home", value: "/", icon: "cubeic-home"},
                     {label: "Cart", value: "/cart", icon: "cubeic-mall"},
                     {label: "Me", value: "/login", icon: "cubeic-person"}
-                ]
+                ],
+                transitionName: 'route-forward'
             };
         },
         watch: {
             // 路由发生变化时，同步tabs选中
             $route(route) {
                 this.selectLabel = route.path;
+                this.transitionName = this.$router.transitionName
             }
         },
         created() {
@@ -58,7 +60,7 @@
             }
         },
         computed: {
-            ...mapGetters(['isLogin','cartTotal'])
+            ...mapGetters(['isLogin', 'cartTotal'])
         },
     }
 </script>
@@ -99,18 +101,28 @@
 
     /* 页面滑动动画 */
     /* 入场前 */
-    .route-move-enter {
+    .route-forward-enter {
         transform: translate3d(-100%, 0, 0);
     }
 
-    /* 出场后 */
-    .route-move-leave-to {
+    .route-back-enter {
         transform: translate3d(100%, 0, 0);
     }
 
+    /* 出场后 */
+    .route-forward-leave-to {
+        transform: translate3d(100%, 0, 0);
+    }
+
+    .route-back-leave-to {
+        transform: translate3d(-100%, 0, 0);
+    }
+
     /* 播放动画过程中，0.3秒完成动画 */
-    .route-move-enter-active,
-    .route-move-leave-active {
+    .route-forward-enter-active,
+    .route-forward-leave-active,
+    .route-back-enter-active,
+    .route-back-leave-active {
         transition: transform 0.3s;
     }
 
